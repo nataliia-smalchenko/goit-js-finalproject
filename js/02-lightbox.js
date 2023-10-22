@@ -12,10 +12,24 @@ function createMarkup(galleryItems) {
         </a>
       </li>`);
   }
-
   return galleryList.join("");
 }
 
-document.querySelector("ul.gallery").innerHTML = createMarkup(galleryItems);
+function openImage(event) {
+  const img = event.target;
+  if (img.nodeName !== "IMG") {
+    return;
+  }
+  event.preventDefault();
+}
 
-console.log(galleryItems);
+const gallery = document.querySelector("ul.gallery");
+
+gallery.innerHTML = createMarkup(galleryItems);
+
+new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionDelay: 250,
+});
+
+gallery.addEventListener("click", openImage);
